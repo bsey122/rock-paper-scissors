@@ -26,6 +26,9 @@ function game(params) {  // create game function to play 5 rounds
     let computerWinCounter = 0;  // create counter variable for computer wins
     let result;  // create variable to log the result of each round
     let score;  // create variable to log the score after each round
+    const finalPlayerWin = 'You win the game!';  // create string variable to use when user wins the game
+    const finalComputerWin = 'Sorry, you lose.';  // create string variable to use when computer wins the game
+    const finalTie = 'Wow a tie?'  // create string variable incase there's a tie
     for (let index = 0; index < 5; index++) {  // loop through the game 5 times
         let userChoice = prompt('Rock, Paper, Scissor?');
         result = playRound(userChoice,computerPlay());
@@ -40,6 +43,13 @@ function game(params) {  // create game function to play 5 rounds
             score = `Player score is ${playerWinCounter} and computer score is ${computerWinCounter}`;
         }
         console.log(score);
+    }
+    if (playerWinCounter > computerWinCounter) {  // log the overall winner
+        console.log(finalPlayerWin);
+    } else if (playerWinCounter < computerWinCounter) {
+        console.log(finalComputerWin);
+    } else {
+        console.log(finalTie);
     }
 }
 console.log(game());
