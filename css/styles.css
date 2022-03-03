@@ -1,0 +1,61 @@
+body {
+    background: rgb(190, 227, 219);
+    margin: 0;
+    font-family: 'PT Sans', sans-serif;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #555b6e;
+    color: antiquewhite;
+    width: 100%;
+    height: 100px;
+}
+.results {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px 50px;
+    height: 100px;
+}
+.results,
+.player-selection {
+    border: 3px solid slategrey;
+    border-radius: 5px;
+    width: 750px;
+}
+.player-selection {
+    display: flex;
+    justify-content: space-around;
+}
+.result {
+    display: flex;
+    justify-content: center;
+    width: 355px;
+}
+.rock,
+.paper,
+.scissors {
+    width: 200px;
+}
+.btn {
+    background: none;
+    border: none;
+}
+.play-again-btn {
+    background-color: #555b6e;
+    color: antiquewhite;
+    border: none;
+    padding: 15px 32px;
+    font-size: 16px;
+}
+p {
+    font-size: 20px;
+}
