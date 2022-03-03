@@ -21,35 +21,70 @@ function playRound(playerSelection,computerSelection) { // create function to pl
         return computerWin;  // return computerWin if player doesn't win and there's no tie
     }
 }
-function game(params) {  // create game function to play 5 rounds
+function game() {  // create game function to play 5 rounds
     let playerWinCounter = 0;  // create counter variable for user wins
+    const playWinContainer = document.querySelector('.player');
+    let playerWinDisplay = document.createElement('p');
+    const computerWinContainer = document.querySelector('.computer');
+    let computerWinDisplay = document.createElement('p');
     let computerWinCounter = 0;  // create counter variable for computer wins
-    let result;  // create variable to log the result of each round
+    const container = document.querySelector('.result');
+    let result = document.createElement('p');  // create variable to log the result of each round
     let score;  // create variable to log the score after each round
+    let finalResult = document.createElement('h2');
     const finalPlayerWin = 'You win the game!';  // create string variable to use when user wins the game
     const finalComputerWin = 'Sorry, you lose.';  // create string variable to use when computer wins the game
     const finalTie = 'Wow a tie?'  // create string variable incase there's a tie
-    for (let index = 0; index < 5; index++) {  // loop through the game 5 times
-        let userChoice = prompt('Rock, Paper, Scissor?');
-        result = playRound(userChoice,computerPlay());
-        console.log(result);
-        if (result.includes('You win!')) {
-            playerWinCounter++;  // increase playerWinCounter by 1 if user wins
-            score = `Player score is ${playerWinCounter} and computer score is ${computerWinCounter}`;
-        }   else if (result.includes('You lose!')) {
-            computerWinCounter++;  // increase computerWinCounter by 1 if computer wins
-            score = `Player score is ${playerWinCounter} and computer score is ${computerWinCounter}`;
-        }   else {
-            score = `Player score is ${playerWinCounter} and computer score is ${computerWinCounter}`;
-        }
-        console.log(score);
-    }
-    if (playerWinCounter > computerWinCounter) {  // log the overall winner
-        console.log(finalPlayerWin);
-    } else if (playerWinCounter < computerWinCounter) {
-        console.log(finalComputerWin);
-    } else {
-        console.log(finalTie);
-    }
+    const buttons = document.querySelectorAll('button');
+    const newGameContainer = document.querySelector('.container');
+    const newGameButton = document.createElement('button');
+    newGameButton.classList.add('play-again-btn');
+    newGameButton.textContent = 'Play again';
+    const resultBorder = document.querySelector('.results');
+
+    buttons.forEach((button) => {
+        button.addEventListener('click', function display(e) {
+            result.textContent = playRound(e.target.classList[0], computerPlay());
+            if (result.textContent.includes('You win!')) {
+                playerWinCounter++;  // increase playerWinCounter by 1 if user wins
+                score = `Player score is ${playerWinCounter} and computer score is ${computerWinCounter}`;
+                resultBorder.setAttribute('style', 'border-color: #50723c;');
+            }   else if (result.textContent.includes('You lose!')) {
+                computerWinCounter++;  // increase computerWinCounter by 1 if computer wins
+                score = `Player score is ${playerWinCounter} and computer score is ${computerWinCounter}`;
+                resultBorder.setAttribute('style', 'border-color: #f15152;');
+            }   else {
+                score = `Player score is ${playerWinCounter} and computer score is ${computerWinCounter}`;
+                resultBorder.setAttribute('style', 'border-color: #b79ced;');
+            }
+            if (playerWinCounter > 4) {  // log the overall winner
+                finalResult.textContent = finalPlayerWin;
+                buttons.forEach((button) => {
+                    button.disabled = true;
+                    button.removeEventListener('click', display);
+                });
+                newGameContainer.appendChild(newGameButton);
+                newGameButton.addEventListener('click', function () {
+                    window.location.reload();
+                })
+            } else if (computerWinCounter > 4) {
+                finalResult.textContent = finalComputerWin;
+                buttons.forEach((button) => {
+                    button.disabled = true;
+                    button.removeEventListener('click', display);
+                });
+                newGameContainer.appendChild(newGameButton);
+                newGameButton.addEventListener('click', function () {
+                    window.location.reload();
+                })
+            }
+            playerWinDisplay.textContent = `Player: ${playerWinCounter}`;
+            computerWinDisplay.textContent = `Computer: ${computerWinCounter}`;
+        });
+    });
+    playWinContainer.appendChild(playerWinDisplay);
+    computerWinContainer.appendChild(computerWinDisplay);
+    container.appendChild(result);
+    newGameContainer.appendChild(finalResult);
 }
-console.log(game());
+game();
